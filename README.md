@@ -88,7 +88,9 @@ Type=Application
 Exec=chromium --kiosk file:///home/pi/Pi-Kitchen-Dashboard/index.html
 ```
 
-Your Pi should now atomatically start kiosk mode once your desktop loads.
+Your Pi should now atomatically start kiosk mode and show the dashboard full screen once your desktop loads.
+
+If your time or date are incorrect, use `sudo raspi-config` to set your locale and timezone.
 
 ##Credit
 
