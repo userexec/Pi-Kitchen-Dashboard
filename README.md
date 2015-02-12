@@ -24,10 +24,10 @@ This project is not distributed with its dependencies; however, [Bower](http://b
 
 1. `sudo apt-get update && sudo apt-get upgrade` - Update your system
 1. Install Node Package Manager (required for Bower)  
-```
-wget http://node-arm.herokuapp.com/node_latest_armhf.deb
-sudo dpkg -i node_latest_armhf.deb
-```
+   ```
+   wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+   sudo dpkg -i node_latest_armhf.deb
+   ```
 2. `sudo npm install -g bower` - Install Bower
 3. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
 4. `bower install` - Install the project's dependencies
@@ -56,12 +56,12 @@ You will need a Raspberry Pi (although you could use anything else) with Raspbia
 You will need to edit three files.
 
 1. `sudo nano /etc/kbd/config` - Set BLANK_TIME and POWERDOWN_TIME to 0
-2. `sudo nano /etc/xdg/lxsession/LXDE/autostart` - Remove the screensaver line, then add the following three lines:
-```
-@xset s noblank 
-@xset s off 
-@xset -dpms
-```
+2. `sudo nano /etc/xdg/lxsession/LXDE/autostart` - Remove the screensaver line, then add the following three lines:  
+   ```
+   @xset s noblank 
+   @xset s off 
+   @xset -dpms
+   ```
 3. 'sudo nano /etc/xdg/lxsession/LXDE-pi/autostart' - Repeat the previous step on this file
 
 Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.php?f=91&t=57552
