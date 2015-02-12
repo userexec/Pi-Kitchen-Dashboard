@@ -1,109 +1,122 @@
 @font-face {
-    font-family: OSP-DIN;
-    src: url(../font/OSP-DIN.ttf);
+   font-family: OSP-DIN;
+   src: url(../font/OSP-DIN.ttf);
 }
 
 body {
-	text-align: center;
-	background: gray;
-	color: white;
-	font-family: 'OSP-DIN', Arial, sans-serif;
-	margin: 0px;
-	padding: 0px;
+text-align: center;
+background: gray;
+color: white;
+font-family: 'OSP-DIN', Arial, sans-serif;
+margin: 0px;
+padding: 0px;
 }
 
 a {
-	color: inherit;
-	text-decoration: inherit;
+color: inherit;
+text-decoration: inherit;
 }
 
 #wrapper {
-	display: inline-block;
-	position: relative;
+display: inline-block;
+position: relative;
 }
 #attribution {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+position: absolute;
+top: 0px;
+right: 0px;
 }
 
 #display {
-	width: 1024px;
-	height: 768px;
-	text-align: center;
-	background: black;
+width: 100vw;
+height: 100vh;
+text-align: center;
+background: black;
 }
 
 .forecast {
-	width: 20%;
+width: 20%;
 }
 
 #forecast1 {
-	color: #FFFFFF;
+color: #FFFFFF;
 }
 #forecast2 {
-	color: #CCCCCC;
+color: #CCCCCC;
 }
 #forecast3 {
-	color: #999999;
+color: #999999;
 }
 #forecast4 {
-	color: #777777;
+color: #777777;
 }
 #forecast5 {
-	color: #777777;
+color: #777777;
 }
 
 .wi {
-	font-size: 4em;
+font-size: 14vmin;
+ line-height: 19vmin !important;
 }
-
+#currently {
+ height: 56vh;
+}
 #currently .wi {
-	font-size: 8em;
+font-size: 18vmin;
 }
 
 #forecastHeading {
-	height: 100px;
+height: 100px;
+}
+#forecast {
+ font-size: 15vmin;
+ margin-bottom: 4vmin;
 }
 
 .day {
-	font-size: 3em;
-	margin-bottom: 0.5em;
+font-size: 3.5vmin;
+margin-bottom: 1.5vmin;
 }
 .desc {
-	font-size: 2em;
-	margin-bottom: 0.5em;
+font-size: 3.5vmin;
+ margin-top: 2.5vmin;
+margin-bottom: 0.5vmin;
 }
 .high {
-	font-size: 2em;
+font-size: 3vmin;
 }
 .low {
-	font-size: 2em;
+font-size: 3vmin;
 }
-
+.temp {
+ font-size: 3.5vmin;
+}
+.temp span.temp {
+ font-size: 15vmin;
+}
 #currentlyHeading {
-	font-size: 3em;
+font-size: 5vmin;
 }
 #currently .desc {
-	font-size: 2.5em;
-	margin-bottom: 0.5em;
+font-size: 8vmin;
+margin-bottom: 0.5vmin;
 }
-#currently .temp {
-	font-size: 2.5em;
+#currently .tvminp {
+font-size: 2.5vmin;
 }
 
 #time {
-	font-size: 9em;
+font-size: 15vmin;
 }
 #date {
-	font-size: 2.5em;
-	color: #CCCCCC;
+font-size: 5vmin;
+color: #CCCCCC;
 }
 
 #currentlyWrapper {
-	display: inline-block;
-	height: 100%;
-	width: 100%;
-	background: rgba(255,255,255,0.2);
-	padding-top: 40px;
+display: inline-block;
+height: 100%;
+width: 100%;
+background: rgba(255,255,255,0.2);
+padding-top: 4vh;
 }
