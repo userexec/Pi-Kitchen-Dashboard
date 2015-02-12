@@ -5,10 +5,10 @@ This project turns your monitor and Raspberry Pi into a simple time and weather 
 
 ##Items needed
 
-+Raspberry Pi
-+Monitor
-+Adapter to hook said Raspberry Pi to said monitor
-+Internet connection
++ Raspberry Pi
++ Monitor
++ Adapter to hook said Raspberry Pi to said monitor
++ Internet connection
 
 ##Instructions
 
@@ -84,10 +84,10 @@ Your Pi should now atomatically start kiosk mode once your desktop loads.
 
 ##Credit
 
-Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/weather-icons. Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).
+Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/weather-icons. Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).  
 
-Time formatting by [Moment.js](http://momentjs.com/)
+Time formatting by [Moment.js](http://momentjs.com/)  
 
-Weather data retrieved using Yahoo! Weather API.
+Weather data retrieved using Yahoo! Weather API.  
 
-Project is under [MIT license](http://choosealicense.com/licenses/mit/).
+Project is under [MIT license](http://choosealicense.com/licenses/mit/).  
