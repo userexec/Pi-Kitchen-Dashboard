@@ -78,8 +78,8 @@ Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.p
 ####Auto-start Chromium
 
 1. Create a new directory at `~/.config/autostart` if it does not exist
-2. `cd ~/.config/autostart`
-3. `nano chromiumKiosk.desktop`
+2. `cd ~/.config/autostart` - cd into this directory
+3. `nano chromiumKiosk.desktop` - Create a new .desktop file
 4. Add the following lines and save. Customize the file path to where this project's index.html lives on your Pi.
 
    ```
