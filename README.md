@@ -21,8 +21,9 @@ If your Pi does not currently have git, you will need to install it first with `
 ###Fulfilling requirements
 
 This project is not distributed with its dependencies; however, [Bower](http://bower.io/) will automatically pull them in.
+
 1. `sudo apt-get update && sudo apt-get upgrade` - Update your system
-1. Install Node Package Manager (required for Bower)
+1. Install Node Package Manager (required for Bower)  
 ```
 wget http://node-arm.herokuapp.com/node_latest_armhf.deb
 sudo dpkg -i node_latest_armhf.deb
