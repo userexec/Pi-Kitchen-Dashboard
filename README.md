@@ -58,9 +58,9 @@ You will need to edit three files.
 1. `sudo nano /etc/kbd/config` - Set BLANK_TIME and POWERDOWN_TIME to 0
 2. `sudo nano /etc/xdg/lxsession/LXDE/autostart` - Remove the screensaver line, then add the following three lines:  
    ```
-   @xset s noblank 
-   @xset s off 
-   @xset -dpms
+@xset s noblank 
+@xset s off 
+@xset -dpms
    ```
 3. 'sudo nano /etc/xdg/lxsession/LXDE-pi/autostart' - Repeat the previous step on this file
 
