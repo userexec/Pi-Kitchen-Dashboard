@@ -68,7 +68,7 @@ You will need to edit three files.
 @xset -dpms
 ```
 
-3. 'sudo nano /etc/xdg/lxsession/LXDE-pi/autostart' - Repeat the previous step on this file
+3. `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` - Repeat the previous step on this file
 
 Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.php?f=91&t=57552
 
