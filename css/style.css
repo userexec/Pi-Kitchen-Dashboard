@@ -1,0 +1,94 @@
+@font-face {
+    font-family: OSP-DIN;
+    src: url(../font/OSP-DIN.ttf);
+}
+
+body {
+	text-align: center;
+	background: gray;
+	color: white;
+	font-family: 'OSP-DIN', Arial, sans-serif;
+	margin: 0px;
+	padding: 0px;
+}
+
+#display {
+	width: 1024px;
+	height: 768px;
+	text-align: center;
+	background: black;
+}
+
+.forecast {
+	width: 20%;
+}
+
+#forecast1 {
+	color: #FFFFFF;
+}
+#forecast2 {
+	color: #CCCCCC;
+}
+#forecast3 {
+	color: #999999;
+}
+#forecast4 {
+	color: #777777;
+}
+#forecast5 {
+	color: #777777;
+}
+
+.wi {
+	font-size: 4em;
+}
+
+#currently .wi {
+	font-size: 8em;
+}
+
+#forecastHeading {
+	height: 100px;
+}
+
+.day {
+	font-size: 3em;
+	margin-bottom: 0.5em;
+}
+.desc {
+	font-size: 2em;
+	margin-bottom: 0.5em;
+}
+.high {
+	font-size: 2em;
+}
+.low {
+	font-size: 2em;
+}
+
+#currentlyHeading {
+	font-size: 3em;
+}
+#currently .desc {
+	font-size: 2.5em;
+	margin-bottom: 0.5em;
+}
+#currently .temp {
+	font-size: 2.5em;
+}
+
+#time {
+	font-size: 9em;
+}
+#date {
+	font-size: 2.5em;
+	color: #CCCCCC;
+}
+
+#currentlyWrapper {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+	background: rgba(255,255,255,0.2);
+	padding-top: 40px;
+}

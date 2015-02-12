@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<title>Kitchen Display</title>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/weather-icons.css" />
+	</head>
+	<body>
+		<table id="display">
+			<tbody>
+				<tr>
+					<td id="currently" colspan="2">
+						<div id="currentlyWrapper">
+							<div class="icon"></div>
+							<div class="desc"></div>
+							<div class="temp">Temperature:<br /><span class="temp"></span></div>
+						</div>
+					</td>
+					<td colspan="3">
+						<div id="time"></div>
+						<div id="date"></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="forecast" id="forecast1">
+						<div class="day"></div>
+						<div class="icon"></div>
+						<div class="desc"></div>
+						<div class="high">High: <span class="highTemp"></span></div>
+						<div class="low">Low: <span class="lowTemp"></span></div>
+					</td>
+					<td class="forecast" id="forecast2">
+						<div class="day"></div>
+						<div class="icon"></div>
+						<div class="desc"></div>
+						<div class="high">High: <span class="highTemp"></span></div>
+						<div class="low">Low: <span class="lowTemp"></span></div>
+					</td>
+					<td class="forecast" id="forecast3">
+						<div class="day"></div>
+						<div class="icon"></div>
+						<div class="desc"></div>
+						<div class="high">High: <span class="highTemp"></span></div>
+						<div class="low">Low: <span class="lowTemp"></span></div>
+					</td>
+					<td class="forecast" id="forecast4">
+						<div class="day"></div>
+						<div class="icon"></div>
+						<div class="desc"></div>
+						<div class="high">High: <span class="highTemp"></span></div>
+						<div class="low">Low: <span class="lowTemp"></span></div>
+					</td>
+					<td class="forecast" id="forecast5">
+						<div class="day"></div>
+						<div class="icon"></div>
+						<div class="desc"></div>
+						<div class="high">High: <span class="highTemp"></span></div>
+						<div class="low">Low: <span class="lowTemp"></span></div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/moment/min/moment.min.js"></script>
+		<script src="js/weather.js"></script>
+	</body>
+</html>
