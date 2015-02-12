@@ -24,10 +24,12 @@ This project is not distributed with its dependencies; however, [Bower](http://b
 
 1. `sudo apt-get update && sudo apt-get upgrade` - Update your system
 1. Install Node Package Manager (required for Bower)  
+
    ```
-   wget http://node-arm.herokuapp.com/node_latest_armhf.deb
-   sudo dpkg -i node_latest_armhf.deb
-   ```
+wget http://node-arm.herokuapp.com/node_latest_armhf.deb
+sudo dpkg -i node_latest_armhf.deb
+```
+
 2. `sudo npm install -g bower` - Install Bower
 3. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
 4. `bower install` - Install the project's dependencies
@@ -77,7 +79,8 @@ Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.p
 2. `cd ~/.config/autostart`
 3. `nano chromiumKiosk.desktop`
 4. Add the following lines and save. Customize the file path to where this project's index.html lives on your Pi.
-```
+
+   ```
 [Desktop Entry]
 Type=Application
 Exec=chromium --kiosk file:///home/pi/Pi-Kitchen-Dashboard/index.html
