@@ -16,7 +16,7 @@ This project turns your monitor and Raspberry Pi into a simple time and weather 
 
 ###Cloning
 
-Clone this repository with `git clone https://github.com/userexec/Pi-Kitchen-Dashboard`.
+Clone this repository with `git clone https://github.com/userexec/Pi-Kitchen-Dashboard.git`.
 
 If your Pi does not currently have git, you will need to install it first with `sudo apt-get install git`.
 
