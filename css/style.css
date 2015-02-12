@@ -12,6 +12,21 @@ body {
 	padding: 0px;
 }
 
+a {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+#wrapper {
+	display: inline-block;
+	position: relative;
+}
+#attribution {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
 #display {
 	width: 1024px;
 	height: 768px;
