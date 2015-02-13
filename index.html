@@ -1,86 +1,16 @@
+<!doctype html>
 <html>
 	<head>
-		<title>Pi Kitchen Dashboard</title>
-
-		<link rel="stylesheet" type="text/css" href="css/style.css" />
-		<link rel="stylesheet" type="text/css" href="css/weather-icons.css" />
+		<meta charset="utf-8"/>
+		<title>Redirect to skin...</title>
 	</head>
 	<body>
-		<div id="wrapper">
-			<a id="attribution" href="https://www.yahoo.com/?ilc=401" target="_blank">
-				<img src="https://poweredby.yahoo.com/white.png" width="134" height="29"/>
-			</a>
-
-			<table id="display">
-				<tbody>
-					<tr>
-						<td id="currently" colspan="2">
-							<a class="yahooLink" href="#" target="_blank">
-								<div id="currentlyWrapper">
-									<div class="icon"></div>
-									<div class="desc"></div>
-									<div class="temp">Temperature:<br /><span class="temp"></span></div>
-								</div>
-							</a>
-						</td>
-						<td colspan="3">
-							<div id="time"></div>
-							<div id="date"></div>
-						</td>
-					</tr>
-					<tr>
-						<td class="forecast" id="forecast1">
-							<a class="yahooLink" href="#" target="_blank">
-								<div class="day"></div>
-								<div class="icon"></div>
-								<div class="desc"></div>
-								<div class="high">High: <span class="highTemp"></span></div>
-								<div class="low">Low: <span class="lowTemp"></span></div>
-							</a>
-						</td>
-						<td class="forecast" id="forecast2">
-							<a class="yahooLink" href="#" target="_blank">
-								<div class="day"></div>
-								<div class="icon"></div>
-								<div class="desc"></div>
-								<div class="high">High: <span class="highTemp"></span></div>
-								<div class="low">Low: <span class="lowTemp"></span></div>
-							</a>
-						</td>
-						<td class="forecast" id="forecast3">
-							<a class="yahooLink" href="#" target="_blank">
-								<div class="day"></div>
-								<div class="icon"></div>
-								<div class="desc"></div>
-								<div class="high">High: <span class="highTemp"></span></div>
-								<div class="low">Low: <span class="lowTemp"></span></div>
-							</a>
-						</td>
-						<td class="forecast" id="forecast4">
-							<a class="yahooLink" href="#" target="_blank">
-								<div class="day"></div>
-								<div class="icon"></div>
-								<div class="desc"></div>
-								<div class="high">High: <span class="highTemp"></span></div>
-								<div class="low">Low: <span class="lowTemp"></span></div>
-							</a>
-						</td>
-						<td class="forecast" id="forecast5">
-							<a class="yahooLink" href="#" target="_blank">
-								<div class="day"></div>
-								<div class="icon"></div>
-								<div class="desc"></div>
-								<div class="high">High: <span class="highTemp"></span></div>
-								<div class="low">Low: <span class="lowTemp"></span></div>
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
-		<script src="bower_components/jquery/dist/jquery.min.js"></script>
-		<script src="bower_components/moment/min/moment.min.js"></script>
-		<script src="js/weather.js"></script>
+		<script>
+			/* Change your active skin by setting skinName to the folder name
+			 * of the desired skin. 
+			 */
+			var skinName = 'default';
+		</script>
+		<script type="text/javascript" src="js/redirect.js"></script>
 	</body>
 </html>

@@ -1,7 +1,7 @@
 #Pi Kitchen Dashboard
 #####Because thrift store monitors still need things to do.
 
-This project turns your monitor and Raspberry Pi into a simple time and weather dashboard for your kitchen. Want it in your living room? *Too bad.*
+This project turns your monitor and Raspberry Pi into a simple, skinnable time and weather dashboard for your kitchen. Want it in your living room? *Too bad.*
 
 ![alt text](https://lh5.googleusercontent.com/OvyLwyLtXF69AJ-8U68OPnLXhZNwOPG7JYv5i-fa_44=w1167-h875-no "Pi Kitchen Dashboard")
 
@@ -92,6 +92,14 @@ Your Pi should now atomatically start kiosk mode and show the dashboard full scr
 
 If your time or date are incorrect, use `sudo raspi-config` to set your locale and timezone.
 
+##Changing the skin
+
+Skins are kept, conveniently, in the skins folder. To switch skins, edit `Pi-Kitchen-Dashboard/index.html` and insert the folder name of the skin you wish to use where the comments direct.
+
+##Creating skins
+
+Creating your own skin or a new skin for distribution is easy and only requires knowledge of HTML and CSS. Just copy the `default` folder under skins, rename it, and begin editing. Comments in the default skin will guide you through the process, but it basically boils down to 99% using your imagination and 1% placing a few IDs and classes so that time and weather data can be auto-populated.
+
 ##Credit
 
 Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/weather-icons. Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).  
@@ -99,5 +107,7 @@ Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/
 Time formatting by [Moment.js](http://momentjs.com/)  
 
 Weather data retrieved using Yahoo! Weather API.  
+
+Default skin responsiveness by [RYJASM](https://github.com/ryjasm).
 
 Project is under [MIT license](http://choosealicense.com/licenses/mit/).  

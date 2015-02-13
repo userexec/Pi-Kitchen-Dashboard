@@ -21,35 +21,60 @@
 	/*************************************************************************/
 
 	function fillCurrently(currently) {
-		var currentlyCell = '#currently ';
+		var icon = $('#currently .icon');
+		var desc = $('#currently .desc');
+		var temp = $('#currently .temp');
 
 		// Insert the current details. Icons may be changed by editing the icons array.
-		$(currentlyCell + '.icon').html(icons[currently.code]);
-		$(currentlyCell + '.desc').html(currently.text);
-		$(currentlyCell + '.temp .temp').html(currently.temp);
+		if (icon.length) {
+			icon.html(icons[currently.code]);
+		}
+		if (desc.length) {
+			desc.html(currently.text);
+		}
+		if (temp.length) {
+			temp.html(currently.temp);
+		}
 	}
 
 	function fillForecast(day, forecast) {
 		// Choose one of the five forecast cells to fill
 		var forecastCell = '#forecast' + day + ' ';
+		var day = $(forecastCell + '.day');
+		var icon = $(forecastCell + '.icon');
+		var desc = $(forecastCell + '.desc');
+		var high = $(forecastCell + '.high');
+		var low = $(forecastCell + '.low');
 
 		// If this is the first cell, call it "Today" instead of the day of the week
-		if (day === 1) {
-			$(forecastCell + '.day').html('Today');
-		} else {
-			$(forecastCell + '.day').html(forecast.day);
+		if (day.length) {
+			if (day === 1) {
+				day.html('Today');
+			} else {
+				day.html(forecast.day);
+			}
 		}
 
 		// Insert the forecast details. Icons may be changed by editing the icons array.
-		$(forecastCell + '.icon').html(icons[forecast.code]);
-		$(forecastCell + '.desc').html(forecast.text);
-		$(forecastCell + '.high .highTemp').html(forecast.high);
-		$(forecastCell + '.low .lowTemp').html(forecast.low);
+		if (icon.length) {
+			icon.html(icons[forecast.code]);
+		}
+		if (desc.length) {
+			desc.html(forecast.text);
+		}
+		if (high.length) {
+			high.html(forecast.high);
+		}
+		if (low.length) {
+			low.html(forecast.low);
+		}
 	}
 
 	function fillLinks(link) {
 		// Linking is required attribution when using Yahoo! APIs
-		$('.yahooLink').attr('href', link);
+		if ($('.yahooLink').length) {
+			$('.yahooLink').attr('href', link);
+		}
 	}
 
 	function queryYahoo() {
@@ -71,59 +96,64 @@
 		});
 	}
 
-	// Icons are from the weather icons pack on github at https://github.com/erikflowers/weather-icons
-	// Change any of the icons by editing the following array
+	// Fallback icons - Do not edit. Icons should be edited in your current skin.
+	// Fallback icons are from the weather icons pack on github at https://github.com/erikflowers/weather-icons
 	// Position in array corresponds to Yahoo! Weather's condition code, which are commented below in plain English
-	var icons = [
-		'<i class="wi wi-tornado"></i>',			//tornado
-		'<i class="wi wi-rain-wind"></i>',			//tropical storm
-		'<i class="wi wi-tornado"></i>',			//hurricane
-		'<i class="wi wi-thunderstorm"></i>',		//severe thunderstorms
-		'<i class="wi wi-thunderstorm"></i>',		//thunderstorms
-		'<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
-		'<i class="wi wi-rain-mix"></i>',			//mixed rain and sleet
-		'<i class="wi wi-rain-mix"></i>',			//mixed snow and sleet
-		'<i class="wi wi-rain-mix"></i>',			//freezing drizzle
-		'<i class="wi wi-cloudy"></i>',				//drizzle
-		'<i class="wi wi-rain"></i>',				//freezing rain
-		'<i class="wi wi-rain"></i>',				//showers
-		'<i class="wi wi-rain"></i>',				//showers
-		'<i class="wi wi-snow"></i>',				//snow flurries
-		'<i class="wi wi-snow"></i>',				//light snow showers
-		'<i class="wi wi-showers"></i>',			//blowing snow
-		'<i class="wi wi-snow"></i>',				//snow
-		'<i class="wi wi-hail"></i>',				//hail
-		'<i class="wi wi-rain-mix"></i>',			//sleet
-		'<i class="wi wi-dust"></i>',				//dust
-		'<i class="wi wi-fog"></i>',				//foggy
-		'<i class="wi wi-day-haze"></i>',			//haze
-		'<i class="wi wi-smoke"></i>',				//smoky
-		'<i class="wi wi-strong-wind"></i>',		//blustery
-		'<i class="wi wi-strong-wind"></i>',		//windy
-		'<i class="wi wi-snowflake-cold"></i>',		//cold
-		'<i class="wi wi-cloudy"></i>',				//cloudy
-		'<i class="wi wi-night-cloudy"></i>',		//mostly cloudy (night)
-		'<i class="wi wi-day-cloudy"></i>',			//mostly cloudy (day)
-		'<i class="wi wi-night-cloudy"></i>',		//partly cloudy (night)
-		'<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
-		'<i class="wi wi-night-clear"></i>',		//clear (night)
-		'<i class="wi wi-day-sunny"></i>',			//sunny
-		'<i class="wi wi-night-clear"></i>',		//fair (night)
-		'<i class="wi wi-day-sunny"></i>',			//fair (day)
-		'<i class="wi wi-hail"></i>',				//mixed rain and hail
-		'<i class="wi wi-hot"></i>',				//hot
-		'<i class="wi wi-storm-showers"></i>',		//isolated thunderstorms
-		'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
-		'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
-		'<i class="wi wi-showers"></i>',			//scattered showers
-		'<i class="wi wi-sleet"></i>',				//heavy snow
-		'<i class="wi wi-snow"></i>',				//scattered snow showers
-		'<i class="wi wi-sleet"></i>',				//heavy snow
-		'<i class="wi wi-cloudy"></i>',				//partly cloudy
-		'<i class="wi wi-storm-showers"></i>',		//thundershowers
-		'<i class="wi wi-snow"></i>',				//snow showers
-		'<i class="wi wi-storm-showers"></i>'		//isolated thundershowers
-	];
+	if (!icons) {
+		$(document).ready(function() {
+			$('head').append('<link rel="stylesheet" type="text/css" href="../../css/weather-icons.css" />');
+		});
+		var icons = [
+			'<i class="wi wi-tornado"></i>',			//tornado
+			'<i class="wi wi-rain-wind"></i>',			//tropical storm
+			'<i class="wi wi-tornado"></i>',			//hurricane
+			'<i class="wi wi-thunderstorm"></i>',		//severe thunderstorms
+			'<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'<i class="wi wi-rain-mix"></i>',			//mixed rain and sleet
+			'<i class="wi wi-rain-mix"></i>',			//mixed snow and sleet
+			'<i class="wi wi-rain-mix"></i>',			//freezing drizzle
+			'<i class="wi wi-cloudy"></i>',				//drizzle
+			'<i class="wi wi-rain"></i>',				//freezing rain
+			'<i class="wi wi-rain"></i>',				//showers
+			'<i class="wi wi-rain"></i>',				//showers
+			'<i class="wi wi-snow"></i>',				//snow flurries
+			'<i class="wi wi-snow"></i>',				//light snow showers
+			'<i class="wi wi-showers"></i>',			//blowing snow
+			'<i class="wi wi-snow"></i>',				//snow
+			'<i class="wi wi-hail"></i>',				//hail
+			'<i class="wi wi-rain-mix"></i>',			//sleet
+			'<i class="wi wi-dust"></i>',				//dust
+			'<i class="wi wi-fog"></i>',				//foggy
+			'<i class="wi wi-day-haze"></i>',			//haze
+			'<i class="wi wi-smoke"></i>',				//smoky
+			'<i class="wi wi-strong-wind"></i>',		//blustery
+			'<i class="wi wi-strong-wind"></i>',		//windy
+			'<i class="wi wi-snowflake-cold"></i>',		//cold
+			'<i class="wi wi-cloudy"></i>',				//cloudy
+			'<i class="wi wi-night-cloudy"></i>',		//mostly cloudy (night)
+			'<i class="wi wi-day-cloudy"></i>',			//mostly cloudy (day)
+			'<i class="wi wi-night-cloudy"></i>',		//partly cloudy (night)
+			'<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+			'<i class="wi wi-night-clear"></i>',		//clear (night)
+			'<i class="wi wi-day-sunny"></i>',			//sunny
+			'<i class="wi wi-night-clear"></i>',		//fair (night)
+			'<i class="wi wi-day-sunny"></i>',			//fair (day)
+			'<i class="wi wi-hail"></i>',				//mixed rain and hail
+			'<i class="wi wi-hot"></i>',				//hot
+			'<i class="wi wi-storm-showers"></i>',		//isolated thunderstorms
+			'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
+			'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
+			'<i class="wi wi-showers"></i>',			//scattered showers
+			'<i class="wi wi-sleet"></i>',				//heavy snow
+			'<i class="wi wi-snow"></i>',				//scattered snow showers
+			'<i class="wi wi-sleet"></i>',				//heavy snow
+			'<i class="wi wi-cloudy"></i>',				//partly cloudy
+			'<i class="wi wi-storm-showers"></i>',		//thundershowers
+			'<i class="wi wi-snow"></i>',				//snow showers
+			'<i class="wi wi-storm-showers"></i>'		//isolated thundershowers
+		];
+	}
 
 	$(window).load(function() {
 		// Fetch the weather data for right now
@@ -135,13 +165,21 @@
 		}, waitBetweenWeatherQueriesMS);
 
 		// Set the current time and date on the clock
-		$('#time').html(moment().format('h:mm:ss a'));
-		$('#date').html(moment().format('dddd, MMMM Do'));
+		if ($('#time').length) {
+			$('#time').html(moment().format('h:mm:ss a'));
+		}
+		if ($('#date').length) {
+			$('#date').html(moment().format('dddd, MMMM Do'));
+		}
 
 		// Refresh the time and date every second
 		setInterval(function(){
-			$('#time').html(moment().format('h:mm:ss a'));
-			$('#date').html(moment().format('dddd, MMMM Do'));
+			if ($('#time').length) {
+				$('#time').html(moment().format('h:mm:ss a'));
+			}
+			if ($('#date').length) {
+				$('#date').html(moment().format('dddd, MMMM Do'));
+			}
 		}, 1000);
 	});
 }());
