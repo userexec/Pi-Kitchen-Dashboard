@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="application-name" content="Pi Kitchen Dashboard"/>
+
+		<title>Pi Kitchen Dashboard Default</title>
+
+		<meta name="description" content="Pi Kitchen Dashboard default template"/>
+		<meta name="author" content="Joshua Woehlke"/>
+		<meta name="designer" content="Joshua Woehlke, Ryan Smith"/>
+
+		<!-- Template-specific styles -->
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+	</head>
+	<body>
+		<!-- 
+			Skinning the Pi Kitchen Dashboard is easy. Simply create an HTML
+			page, ensure that the two sections marked REQUIRED appear,
+			and place elements onto the page to be auto-populated. The rest
+			is limited only by your imagination.
+
+			Required auto-populated IDs for skin design:
+
+			You will need to include some elements in your skin so that the
+			weather and time updates may be auto-populated onto the page.
+			The classes indented beneath the IDs indicate that elements with
+			these classes should be found nested somewhere inside the element
+			with that ID.
+
+				#currently
+					.icon 	- 	Current condition icon (customize icons in your skin's js)
+					.desc 	- 	Plain text condition
+					.temp 	- 	Current temperature
+
+				#forecast1 ... #forecast5
+					.day 	- 	Plain text day of the week
+					.icon 	- 	Forecast condition icon
+					.desc 	- 	Plain text forecast condition
+					.high 	- 	Forecasted high temperature
+					.low 	- 	Forecasted low temperature
+
+				#time		- 	Time value provided by moment.js
+
+				#date 		- 	Date value provided by moment.js
+
+				a.yahooLink	-	Required for Yahoo! Weather API usage. Any
+								weather data must link to its source on Yahoo.
+								The appropriate href will be populated into any
+								link with this class.
+
+			Changing weather icons:
+
+			By default, the included Weather Icons font will be used in your
+			skin; however, if you'd like to use custom icons, define a JS array
+			called icons and specify the HTML you'd like to use for each
+			condition code. An example of this array can be found in the
+			default skin in the js/ folder. Plese not that this script must
+			be loaded before weather.js.
+
+			A note about Yahoo! Weather API:
+
+			In order to use the weather data requested from Yahoo!, a Powered
+			by Yahoo icon must appear in the skin. Please see the Yahoo!
+			Developer Attribution Guidelines for Yahoo APIs documentation
+			available at https://developer.yahoo.com/attribution/. Skins
+			that do not display an appropriate Powered by Yahoo! icon and/or
+			do not use the .yahooLink class to link their weather data back to
+			the Yahoo! will not be merged.
+		-->
+
+		<div id="wrapper">
+			<!-- REQUIRED Powered by Yahoo! Attribution -->
+			<!-- -->	<a id="attribution" href="https://www.yahoo.com/?ilc=401" target="_blank">
+			<!-- -->		<img src="https://poweredby.yahoo.com/white.png" width="134" height="29"/>
+			<!-- -->		<!--<img src="https://poweredby.yahoo.com/purple.png" width="134" height="29"/>-->
+			<!-- -->	</a>
+			<!-- REQUIRED Powered by Yahoo! Attribution -->
+
+			<table id="display">
+				<tbody>
+					<tr>
+						<td id="currently" colspan="2">
+							<!-- Current weather information -->
+							<a class="yahooLink" href="#" target="_blank">
+								<div id="currentlyWrapper">
+									<div class="icon"></div>
+									<div class="desc"></div>
+									<div class="currentTemp">Temperature:<br /><span class="temp"></span></div>
+								</div>
+							</a>
+						</td>
+						<td colspan="3">
+							<!-- Current date and time information -->
+							<div id="time"></div>
+							<div id="date"></div>
+						</td>
+					</tr>
+					<tr>
+						<!-- Upcoming forecasts -->
+						<td class="forecast" id="forecast1">
+							<a class="yahooLink" href="#" target="_blank">
+								<div class="day"></div>
+								<div class="icon"></div>
+								<div class="desc"></div>
+								<div class="highTemp">High: <span class="high"></span></div>
+								<div class="lowTemp">Low: <span class="low"></span></div>
+							</a>
+						</td>
+						<td class="forecast" id="forecast2">
+							<a class="yahooLink" href="#" target="_blank">
+								<div class="day"></div>
+								<div class="icon"></div>
+								<div class="desc"></div>
+								<div class="highTemp">High: <span class="high"></span></div>
+								<div class="lowTemp">Low: <span class="low"></span></div>
+							</a>
+						</td>
+						<td class="forecast" id="forecast3">
+							<a class="yahooLink" href="#" target="_blank">
+								<div class="day"></div>
+								<div class="icon"></div>
+								<div class="desc"></div>
+								<div class="highTemp">High: <span class="high"></span></div>
+								<div class="lowTemp">Low: <span class="low"></span></div>
+							</a>
+						</td>
+						<td class="forecast" id="forecast4">
+							<a class="yahooLink" href="#" target="_blank">
+								<div class="day"></div>
+								<div class="icon"></div>
+								<div class="desc"></div>
+								<div class="highTemp">High: <span class="high"></span></div>
+								<div class="lowTemp">Low: <span class="low"></span></div>
+							</a>
+						</td>
+						<td class="forecast" id="forecast5">
+							<a class="yahooLink" href="#" target="_blank">
+								<div class="day"></div>
+								<div class="icon"></div>
+								<div class="desc"></div>
+								<div class="highTemp">High: <span class="high"></span></div>
+								<div class="lowTemp">Low: <span class="low"></span></div>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- OPTIONAL custom icons -->
+		<!-- -->	<!--<script src="js/icons.js"></script>-->
+		<!-- OPTIONAL custom icons -->
+
+		<!-- REQUIRED template files -->
+		<!-- -->	<script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+		<!-- -->	<script src="../../bower_components/moment/min/moment.min.js"></script>
+		<!-- -->	<script src="../../js/weather.js"></script>
+		<!-- REQUIRED template files -->
+	</body>
+</html>
