@@ -1,26 +1,43 @@
 #Pi Kitchen Dashboard
 #####Because thrift store monitors still need things to do.
 
-This project turns your monitor and Raspberry Pi into a simple, skinnable time and weather dashboard for your kitchen. Want it in your living room? *Too bad.*
+This project turns your monitor and Raspberry Pi into a simple, skinnable time and weather dashboard for your kitchen. Want it in your living room? **Too bad.**
 
 ![alt text](https://lh5.googleusercontent.com/OvyLwyLtXF69AJ-8U68OPnLXhZNwOPG7JYv5i-fa_44=w1167-h875-no "Pi Kitchen Dashboard")
 
-##Items needed
+* * *
+
++ [Items Needed](#itemsNeeded)
++ [Instructions](#instructions)
+    - [Cloning](#cloning)
+    - [Fulfilling requirements](#fulfillingRequirements)
+    - [Setting your location](#settingYourLocation)
+    - [Configuring your Pi](#configuringYourPi)
+        * [Disallowing screen sleep](#disallowingScreenSleep)
+        * [Installing Chromium](#installingChromium)
+        * [Auto-starting Chromium](#autoStartingChromium)
++ [Changing the skin](#changingTheSkin)
++ [Creating skins](#creatingSkins)
++ [Credit](#credit)
+
+* * *
+
+##<a name="itemsNeeded"></a>Items needed
 
 + Raspberry Pi
 + Monitor
 + Adapter to hook said Raspberry Pi to said monitor
 + Internet connection
 
-##Instructions
+##<a name="instructions"></a>Instructions
 
-###Cloning
+###<a name="cloning"></a>Cloning
 
 Clone this repository with `git clone https://github.com/userexec/Pi-Kitchen-Dashboard.git`.
 
 If your Pi does not currently have git, you will need to install it first with `sudo apt-get install git`.
 
-###Fulfilling requirements
+###<a name="fulfillingRequirements"></a>Fulfilling requirements
 
 This project is not distributed with its dependencies; however, [Bower](http://bower.io/) will automatically pull them in.
 
@@ -36,7 +53,7 @@ sudo dpkg -i node_latest_armhf.deb
 3. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
 4. `bower install` - Install the project's dependencies
 
-###Setting your location
+###<a name="settingYourLocation"></a>Setting your location
 
 Open `js/weather.js` and find the following section at the top:
 
@@ -52,11 +69,11 @@ var waitBetweenWeatherQueriesMS = 1800000;
 
 Change these variables to match your location and desired update interval, and your part of the coding is done!
 
-###Configuring your Pi
+###<a name="configuringYourPi"></a>Configuring your Pi
 
 You will need a Raspberry Pi (although you could use anything else) with Raspbian (again, or anything else) and an internet connection. To complete the dashboard, your Pi will need disallow screen sleep and automatically start kiosk mode.
 
-####Disallow screen sleep
+####<a name="disallowingScreenSleep"></a>Disallowing screen sleep
 You will need to edit three files.
 
 1. `sudo nano /etc/kbd/config` - Set BLANK_TIME and POWERDOWN_TIME to 0
@@ -72,10 +89,10 @@ You will need to edit three files.
 
 Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.php?f=91&t=57552
 
-####Install Chromium
+####<a name="installingChromium"></a>Installing Chromium
 `sudo apt-get install chromium`
 
-####Auto-start Chromium
+####<a name="autoStartingChromium"></a>Auto-starting Chromium
 
 1. Create a new directory at `~/.config/autostart` if it does not exist
 2. `cd ~/.config/autostart` - cd into this directory
@@ -92,15 +109,15 @@ Your Pi should now atomatically start kiosk mode and show the dashboard full scr
 
 If your time or date are incorrect, use `sudo raspi-config` to set your locale and timezone.
 
-##Changing the skin
+##<a name="changingTheSkin"></a>Changing the skin
 
 Skins are kept, conveniently, in the skins folder. To switch skins, edit `Pi-Kitchen-Dashboard/index.html` and insert the folder name of the skin you wish to use where the comments direct.
 
-##Creating skins
+##<a name="creatingSkins"></a>Creating skins
 
 Creating your own skin or a new skin for distribution is easy and only requires knowledge of HTML and CSS. Just copy the `default` folder under skins, rename it, and begin editing. Comments in the default skin will guide you through the process, but it basically boils down to 99% using your imagination and 1% placing a few IDs and classes so that time and weather data can be auto-populated.
 
-##Credit
+##<a name="credit"></a>Credit
 
 Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/weather-icons. Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).  
 
