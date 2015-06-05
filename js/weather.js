@@ -12,8 +12,8 @@
 	var woeid = 23416998;
 	
 	// Your temperature unit measurement
-	// This bit is simple, C for Celcius, and F for Fahrenheit
-	var unit = C;
+	// This bit is simple, 'c' for Celcius, and 'f' for Fahrenheit
+	var unit = 'c';
 
 	// Yahoo! query interval (milliseconds)
 	// Default is every 15 minutes. Be reasonable. Don't query Yahoo every 500ms.
@@ -84,7 +84,7 @@
 	function queryYahoo() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '%20and%20unit%3D%22' + unit + '%22&format=json',
+			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '%20and%20u%3D%22' + unit + '%22&format=json',
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
