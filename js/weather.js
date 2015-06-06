@@ -7,13 +7,17 @@
 	/*********************************/
 	// USER EDITABLE LINES - Change these to match your location and preferences!
 
-	// Your ZIP code
-	// If you do not have a ZIP code, please edit the YQL query appropriately in the queryYahoo() function
-	var zipcode = 65401;
+	// Your Yahoo WOEID code
+	// Find your WOEID code at http://zourbuth.com/tools/woeid/
+	var woeid = 23416998;
+	
+	// Your temperature unit measurement
+	// This bit is simple, 'c' for Celcius, and 'f' for Fahrenheit
+	var unit = 'c';
 
 	// Yahoo! query interval (milliseconds)
-	// Default is every 30 minutes. Be reasonable. Don't query Yahoo every 500ms.
-	var waitBetweenWeatherQueriesMS = 1800000;
+	// Default is every 15 minutes. Be reasonable. Don't query Yahoo every 500ms.
+	var waitBetweenWeatherQueriesMS = 900000;
 
 	// You're done!
 	/*********************************/
@@ -80,7 +84,7 @@
 	function queryYahoo() {
 		$.ajax({
 			type: 'GET',
-			url: 'http://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20location%3D%22' + zipcode + '%22&format=json',
+			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '%20and%20u%3D%22' + unit + '%22&format=json',
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
