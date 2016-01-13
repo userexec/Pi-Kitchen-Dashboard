@@ -22,102 +22,114 @@ This project turns your monitor and Raspberry Pi into a simple, skinnable time a
 
 * * *
 
-##<a name="itemsNeeded"></a>Items needed
+## <a name="itemsNeeded"></a>Items needed
 
 + Raspberry Pi
 + Monitor
 + Adapter to hook said Raspberry Pi to said monitor
 + Internet connection
 
-##<a name="instructions"></a>Instructions
+## <a name="instructions"></a>Instructions
 
-###<a name="cloning"></a>Cloning
+### <a name="cloning"></a>Cloning
 
 Clone this repository with `git clone https://github.com/userexec/Pi-Kitchen-Dashboard.git`.
 
 If your Pi does not currently have git, you will need to install it first with `sudo apt-get install git`.
 
-###<a name="fulfillingRequirements"></a>Fulfilling requirements
+### <a name="fulfillingRequirements"></a>Fulfilling requirements
 
 This project is not distributed with its dependencies; however, [Bower](http://bower.io/) will automatically pull them in.
 
 1. `sudo apt-get update && sudo apt-get upgrade` - Update your system
-1. Install Node Package Manager (required for Bower)  
+2. Install Node Package Manager (required for Bower) 
 
-   ```
-wget http://node-arm.herokuapp.com/node_latest_armhf.deb
-sudo dpkg -i node_latest_armhf.deb
+##### Raspberry Pi A/B/B+
+
+```
+wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv6l.tar.gz 
+tar -xvf node-v4.0.0-linux-armv6l.tar.gz 
+cd node-v4.0.0-linux-armv6l
+sudo cp -R * /usr/local/
 ```
 
-2. `sudo npm install -g bower` - Install Bower
-3. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
-4. `bower install` - Install the project's dependencies
+##### Raspberry Pi 2 Model B
 
-###<a name="settingYourLocation"></a>Setting your location
+```
+wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv7l.tar.gz 
+tar -xvf node-v4.0.0-linux-armv7l.tar.gz 
+cd node-v4.0.0-linux-armv7l
+sudo cp -R * /usr/local/
+```
+<a href="http://blog.wia.io/installing-node-js-v4-0-0-on-a-raspberry-pi/">Node install instructions</a> by <a href="http://blog.wia.io/author/conall/">Conall Laverty</a>
+
+3. `sudo npm install -g bower` - Install Bower
+4. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
+5. `bower install` - Install the project's dependencies
+
+### <a name="settingYourLocation"></a>Setting your location
 
 Open `js/weather.js` and find the following section at the top:
 
 ```javascript
-// Your ZIP code
-// If you do not have a ZIP code, please edit the YQL query appropriately in the queryYahoo() function
-var zipcode = 65401;
+// Your Yahoo WOEID code
+// Find your WOEID code at http://zourbuth.com/tools/woeid/
+var woeid = 23416998;
+
+// Your temperature unit measurement
+// This bit is simple, 'c' for Celcius, and 'f' for Fahrenheit
+var unit = 'c';
 
 // Yahoo! query interval (milliseconds)
-// Default is every 30 minutes. Be reasonable. Don't query Yahoo every 500ms.
-var waitBetweenWeatherQueriesMS = 1800000;
+// Default is every 15 minutes. Be reasonable. Don't query Yahoo every 500ms.
+var waitBetweenWeatherQueriesMS = 900000;
 ```
 
-Change these variables to match your location and desired update interval, and your part of the coding is done!
+Change these variables to match your location, unit measurement, and desired update interval, and your part of the coding is done!
 
-###<a name="configuringYourPi"></a>Configuring your Pi
+### <a name="configuringYourPi"></a>Configuring your Pi
 
 You will need a Raspberry Pi (although you could use anything else) with Raspbian (again, or anything else) and an internet connection. To complete the dashboard, your Pi will need disallow screen sleep and automatically start kiosk mode.
 
-####<a name="disallowingScreenSleep"></a>Disallowing screen sleep
-You will need to edit three files.
+#### <a name="disallowingScreenSleep"></a>Disallowing screen sleep
 
-1. `sudo nano /etc/kbd/config` - Set BLANK_TIME and POWERDOWN_TIME to 0
-2. `sudo nano /etc/xdg/lxsession/LXDE/autostart` - Remove the screensaver line, then add the following three lines:  
+`sudo nano /etc/lightdm/lightdm.conf`
 
-   ```bash
-@xset s noblank 
-@xset s off 
-@xset -dpms
+Add the following lines to the [SeatDefaults] section:
+
+```bash
+xserver-command=X -s 0 dpms
 ```
 
-3. `sudo nano /etc/xdg/lxsession/LXDE-pi/autostart` - Repeat the previous step on this file
+#### <a name="installingChromium"></a>Installing Midori
+`sudo apt-get install midori`
 
-Instructions courtesy of jwzumwalt http://www.raspberrypi.org/forums/viewtopic.php?f=91&t=57552
-
-####<a name="installingChromium"></a>Installing Chromium
-`sudo apt-get install chromium`
-
-####<a name="autoStartingChromium"></a>Auto-starting Chromium
+#### <a name="autoStartingChromium"></a>Auto-starting Midori
 
 1. Create a new directory at `~/.config/autostart` if it does not exist
 2. `cd ~/.config/autostart` - cd into this directory
-3. `nano chromiumKiosk.desktop` - Create a new .desktop file
+3. `nano piKitchenDash.desktop` - Create a new .desktop file
 4. Add the following lines and save. Customize the file path to where this project's index.html lives on your Pi.
 
-   ```
+```
 [Desktop Entry]
 Type=Application
-Exec=chromium --kiosk file:///home/pi/Pi-Kitchen-Dashboard/index.html
+Exec=midori -e Fullscreen -a file:///home/pi/Pi-Kitchen-Dashboard/index.html
 ```
 
 Your Pi should now atomatically start kiosk mode and show the dashboard full screen once your desktop loads.
 
 If your time or date are incorrect, use `sudo raspi-config` to set your locale and timezone.
 
-##<a name="changingTheSkin"></a>Changing the skin
+## <a name="changingTheSkin"></a>Changing the skin
 
 Skins are kept, conveniently, in the skins folder. To switch skins, edit `Pi-Kitchen-Dashboard/index.html` and insert the folder name of the skin you wish to use where the comments direct.
 
-##<a name="creatingSkins"></a>Creating skins
+## <a name="creatingSkins"></a>Creating skins
 
 Creating your own skin or a new skin for distribution is easy and only requires knowledge of HTML and CSS. Just copy the `default` folder under skins, rename it, and begin editing. Comments in the default skin will guide you through the process, but it basically boils down to 99% using your imagination and 1% placing a few IDs and classes so that time and weather data can be auto-populated.
 
-##<a name="credit"></a>Credit
+## <a name="credit"></a>Credit
 
 Weather icons by Lukas Bischoff and Erik Flowers https://github.com/erikflowers/weather-icons. Icons licensed under [SIL OFL 1.1](http://scripts.sil.org/OFL).  
 
