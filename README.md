@@ -119,14 +119,21 @@ Midori is used for its compatibility with multiple RPi generations and reasonabl
 
 1. Create a new directory at `~/.config/autostart` if it does not exist
 2. `cd ~/.config/autostart` - cd into this directory
-3. `nano piKitchenDash.desktop` - Create a new .desktop file
+3. `nano unclutterAuto.desktop` - Create a new .desktop file
 4. Add the following lines and save. Customize the file path to where this project's index.html lives on your Pi.
 
-```
-[Desktop Entry]
-Type=Application
-Exec=unclutter -idle 0.1 & midori -e Fullscreen -a file:///home/pi/Pi-Kitchen-Dashboard/index.html
-```
+	```
+	[Desktop Entry]
+	Type=Application
+	Exec=unclutter -idle 0.1
+	```
+5. `nano midoriAuto.desktop` - Create a new .desktop file
+
+	```
+	[Desktop Entry]
+	Type=Application
+	Exec=midori -e Fullscreen -a file:///home/pi/Pi-Kitchen-Dashboard/index.html
+	```
 
 Your Pi should now atomatically start kiosk mode and show the dashboard full screen once your desktop loads.
 
