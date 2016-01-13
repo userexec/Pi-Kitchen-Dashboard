@@ -14,8 +14,9 @@ This project turns your monitor and Raspberry Pi into a simple, skinnable time a
     - [Setting your location](#settingYourLocation)
     - [Configuring your Pi](#configuringYourPi)
         * [Disallowing screen sleep](#disallowingScreenSleep)
-        * [Installing Chromium](#installingChromium)
-        * [Auto-starting Chromium](#autoStartingChromium)
+        * [Installing Unclutter](#hidingCursor)
+        * [Installing Midori](#installingMidori)
+        * [Auto-starting Unclutter and Midori](#autoStartingMidori)
 + [Changing the skin](#changingTheSkin)
 + [Creating skins](#creatingSkins)
 + [Credit](#credit)
@@ -44,24 +45,25 @@ This project is not distributed with its dependencies; however, [Bower](http://b
 1. `sudo apt-get update && sudo apt-get upgrade` - Update your system
 2. Install Node Package Manager (required for Bower) 
 
-##### Raspberry Pi A/B/B+
+  ##### Raspberry Pi A/B/B+
 
-```
-wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv6l.tar.gz 
-tar -xvf node-v4.0.0-linux-armv6l.tar.gz 
-cd node-v4.0.0-linux-armv6l
-sudo cp -R * /usr/local/
-```
+  ```
+  wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv6l.tar.gz 
+  tar -xvf node-v4.0.0-linux-armv6l.tar.gz 
+  cd node-v4.0.0-linux-armv6l
+  sudo cp -R * /usr/local/
+  ```
 
-##### Raspberry Pi 2 Model B
+  ##### Raspberry Pi 2 Model B
 
-```
-wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv7l.tar.gz 
-tar -xvf node-v4.0.0-linux-armv7l.tar.gz 
-cd node-v4.0.0-linux-armv7l
-sudo cp -R * /usr/local/
-```
-<a href="http://blog.wia.io/installing-node-js-v4-0-0-on-a-raspberry-pi/">Node install instructions</a> by <a href="http://blog.wia.io/author/conall/">Conall Laverty</a>
+  ```
+  wget https://nodejs.org/dist/v4.0.0/node-v4.0.0-linux-armv7l.tar.gz 
+  tar -xvf node-v4.0.0-linux-armv7l.tar.gz 
+  cd node-v4.0.0-linux-armv7l
+  sudo cp -R * /usr/local/
+  ```
+  <a href="http://blog.wia.io/installing-node-js-v4-0-0-on-a-raspberry-pi/">Node install instructions</a> by <a href="http://blog.wia.io/author/conall/">Conall Laverty</a>
+    
 
 3. `sudo npm install -g bower` - Install Bower
 4. `cd ~/Pi-Kitchen-Dashboard` - cd into the directory of the cloned project
@@ -101,10 +103,19 @@ Add the following lines to the [SeatDefaults] section:
 xserver-command=X -s 0 dpms
 ```
 
-#### <a name="installingChromium"></a>Installing Midori
+#### <a name="hideCursor"></a>Installing Unclutter
+
+Unclutter causes the mouse cursor to disappear when the mouse isn't being moved. This prevents the dash from having a cursor over the middle unless you plug in a mouse and move it elsewhere.
+
+`sudo apt-get install unclutter`
+
+#### <a name="installingMidori"></a>Installing Midori
+
+Midori is used for its compatibility with multiple RPi generations and reasonably solid rendering. Other browsers may be used if preferred using much the same strategy.
+
 `sudo apt-get install midori`
 
-#### <a name="autoStartingChromium"></a>Auto-starting Midori
+#### <a name="autoStartingMidori"></a>Auto-starting Unclutter and Midori
 
 1. Create a new directory at `~/.config/autostart` if it does not exist
 2. `cd ~/.config/autostart` - cd into this directory
@@ -114,7 +125,7 @@ xserver-command=X -s 0 dpms
 ```
 [Desktop Entry]
 Type=Application
-Exec=midori -e Fullscreen -a file:///home/pi/Pi-Kitchen-Dashboard/index.html
+Exec=unclutter -idle 0.1 & midori -e Fullscreen -a file:///home/pi/Pi-Kitchen-Dashboard/index.html
 ```
 
 Your Pi should now atomatically start kiosk mode and show the dashboard full screen once your desktop loads.
