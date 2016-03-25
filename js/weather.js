@@ -24,6 +24,13 @@
 	/*****************************************************/
 	/*************************************************************************/
 
+	function resolveTemp(temp) {
+		if (unit === 'c' || unit === 'C') {
+			temp = '' + Math.round((parseInt(temp) - 32) / 1.8);
+		}
+		return temp;
+	}
+
 	function fillCurrently(currently) {
 		var icon = $('#currently .icon');
 		var desc = $('#currently .desc');
@@ -37,7 +44,7 @@
 			desc.html(currently.text);
 		}
 		if (temp.length) {
-			temp.html(currently.temp);
+			temp.html(resolveTemp(currently.temp));
 		}
 	}
 
@@ -67,10 +74,10 @@
 			desc.html(forecast.text);
 		}
 		if (high.length) {
-			high.html(forecast.high);
+			high.html(resolveTemp(forecast.high));
 		}
 		if (low.length) {
-			low.html(forecast.low);
+			low.html(resolveTemp(forecast.low));
 		}
 	}
 
@@ -84,7 +91,7 @@
 	function queryYahoo() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '%20and%20u%3D%22' + unit + '%22&format=json',
+			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '&format=json',
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
