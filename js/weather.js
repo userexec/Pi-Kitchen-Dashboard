@@ -32,6 +32,7 @@
 		if (unit === 'c' || unit === 'C') {
 			temp = '' + Math.round((parseInt(temp) - 32) / 1.8);
 		}
+		temp += '&deg;'
 		return temp;
 	}
 
