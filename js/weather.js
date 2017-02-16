@@ -14,6 +14,10 @@
 	// Your temperature unit measurement
 	// This bit is simple, 'c' for Celcius, and 'f' for Fahrenheit
 	var unit = 'c';
+	
+	// Format for date and time
+	var formatTime = 'h:mm:ss a'
+	var formatDate = 'dddd, MMMM Do'
 
 	// Yahoo! query interval (milliseconds)
 	// Default is every 15 minutes. Be reasonable. Don't query Yahoo every 500ms.
@@ -177,19 +181,19 @@
 
 		// Set the current time and date on the clock
 		if ($('#time').length) {
-			$('#time').html(moment().format('h:mm:ss a'));
+			$('#time').html(moment().format(formatTime));
 		}
 		if ($('#date').length) {
-			$('#date').html(moment().format('dddd, MMMM Do'));
+			$('#date').html(moment().format(formatDate));
 		}
 
 		// Refresh the time and date every second
 		setInterval(function(){
 			if ($('#time').length) {
-				$('#time').html(moment().format('h:mm:ss a'));
+				$('#time').html(moment().format(formatTime));
 			}
 			if ($('#date').length) {
-				$('#date').html(moment().format('dddd, MMMM Do'));
+				$('#date').html(moment().format(formatDate));
 			}
 		}, 1000);
 	});
