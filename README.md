@@ -103,7 +103,7 @@ Unless screen sleep is prevented, the dashboard screen will go black after a few
 Add the following lines to the [SeatDefaults] section:
 
 ```bash
-xserver-command=X -s 0 dpms
+xserver-command=X -s 0 -dpms
 ```
 
 #### <a name="hideCursor"></a>Installing Unclutter
