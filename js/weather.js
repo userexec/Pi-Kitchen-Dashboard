@@ -104,10 +104,10 @@
 			// Drill down into the returned data to find the relevant weather information
 			result = result.list;
 			fillForecast(1, result[0]);
-			fillForecast(2, result[9]);
-			fillForecast(3, result[18]);
-			fillForecast(4, result[27]);
-			fillForecast(5, result[36]);
+			fillForecast(2, result[8]);
+			fillForecast(3, result[16]);
+			fillForecast(4, result[24]);
+			fillForecast(5, result[32]);
 		});
 	}
 
