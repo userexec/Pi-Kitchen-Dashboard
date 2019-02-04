@@ -7,13 +7,14 @@
 	/*********************************/
 	// USER EDITABLE LINES - Change these to match your location and preferences!
 
-	// Your Yahoo WOEID code
-	// Find your WOEID code at http://zourbuth.com/tools/woeid/
-	var woeid = 23416998;
+	// Your Openweathermap city code
+	// Find your id code at http://bulk.openweathermap.org/sample/
+	var city_id = 5128638; //NYC as an example
+	var api_key = 'YOUR API KEY HERE';
 	
 	// Your temperature unit measurement
-	// This bit is simple, 'c' for Celcius, and 'f' for Fahrenheit
-	var unit = 'c';
+	// This bit is simple, 'metric' for Celcius, and 'imperial' for Fahrenheit
+	var metric = 'imperial';
 	
 	// Format for date and time
 	var formatTime = 'h:mm:ss a'
@@ -29,9 +30,7 @@
 	/*************************************************************************/
 
 	function resolveTemp(temp) {
-		if (unit === 'c' || unit === 'C') {
-			temp = '' + Math.round((parseInt(temp) - 32) / 1.8);
-		}
+		temp = Math.round(temp);
 		temp += '&deg;'
 		return temp;
 	}
@@ -43,13 +42,13 @@
 
 		// Insert the current details. Icons may be changed by editing the icons array.
 		if (icon.length) {
-			icon.html(icons[currently.code]);
+			icon.html(icons[currently.weather[0].id]);
 		}
 		if (desc.length) {
-			desc.html(currently.text);
+			desc.html(currently.weather[0].description);
 		}
 		if (temp.length) {
-			temp.html(resolveTemp(currently.temp));
+			temp.html(resolveTemp(currently.main.temp));
 		}
 	}
 
@@ -67,48 +66,48 @@
 			if (day === 1) {
 				day.html('Today');
 			} else {
-				day.html(forecast.day);
+				day.html(new Date(forecast.dt*1000).toDateString());
 			}
 		}
 
 		// Insert the forecast details. Icons may be changed by editing the icons array.
 		if (icon.length) {
-			icon.html(icons[forecast.code]);
+			icon.html(icons[forecast.weather[0].id]);
 		}
 		if (desc.length) {
-			desc.html(forecast.text);
+			desc.html(forecast.weather[0].description);
 		}
 		if (high.length) {
-			high.html(resolveTemp(forecast.high));
+			high.html(resolveTemp(forecast.main.temp_max));
 		}
 		if (low.length) {
-			low.html(resolveTemp(forecast.low));
+			low.html(resolveTemp(forecast.main.temp_min));
 		}
 	}
 
-	function fillLinks(link) {
-		// Linking is required attribution when using Yahoo! APIs
-		if ($('.yahooLink').length) {
-			$('.yahooLink').attr('href', link);
-		}
-	}
-
-	function queryYahoo() {
+	function queryOpenWeatherMap() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D' + woeid + '&format=json',
+			url: 'https://api.openweathermap.org/data/2.5/weather?id=' + city_id + '&appid=' + api_key + '&units=' + metric,
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
-			result = result.query.results.channel.item;
+			fillCurrently(result);
+			fillForecast(0, result);
+		});
 
-			fillCurrently(result.condition);
-			fillForecast(1, result.forecast[0]);
-			fillForecast(2, result.forecast[1]);
-			fillForecast(3, result.forecast[2]);
-			fillForecast(4, result.forecast[3]);
-			fillForecast(5, result.forecast[4]);
-			fillLinks(result.link);
+		$.ajax({
+			type: 'GET',
+			url: 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&appid=' + api_key + '&units=' + metric,
+			dataType: 'json'
+		}).done(function (result) {
+			// Drill down into the returned data to find the relevant weather information
+			result = result.list;
+			fillForecast(1, result[0]);
+			fillForecast(2, result[9]);
+			fillForecast(3, result[18]);
+			fillForecast(4, result[27]);
+			fillForecast(5, result[36]);
 		});
 	}
 
@@ -119,65 +118,89 @@
 		$(document).ready(function() {
 			$('head').append('<link rel="stylesheet" type="text/css" href="../../css/weather-icons.css" />');
 		});
-		var icons = [
-			'<i class="wi wi-tornado"></i>',			//tornado
-			'<i class="wi wi-rain-wind"></i>',			//tropical storm
-			'<i class="wi wi-tornado"></i>',			//hurricane
-			'<i class="wi wi-thunderstorm"></i>',		//severe thunderstorms
-			'<i class="wi wi-thunderstorm"></i>',		//thunderstorms
-			'<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
-			'<i class="wi wi-rain-mix"></i>',			//mixed rain and sleet
-			'<i class="wi wi-rain-mix"></i>',			//mixed snow and sleet
-			'<i class="wi wi-rain-mix"></i>',			//freezing drizzle
-			'<i class="wi wi-cloudy"></i>',				//drizzle
-			'<i class="wi wi-rain"></i>',				//freezing rain
-			'<i class="wi wi-rain"></i>',				//showers
-			'<i class="wi wi-rain"></i>',				//showers
-			'<i class="wi wi-snow"></i>',				//snow flurries
-			'<i class="wi wi-snow"></i>',				//light snow showers
-			'<i class="wi wi-showers"></i>',			//blowing snow
-			'<i class="wi wi-snow"></i>',				//snow
-			'<i class="wi wi-hail"></i>',				//hail
-			'<i class="wi wi-rain-mix"></i>',			//sleet
-			'<i class="wi wi-dust"></i>',				//dust
-			'<i class="wi wi-fog"></i>',				//foggy
-			'<i class="wi wi-day-haze"></i>',			//haze
-			'<i class="wi wi-smoke"></i>',				//smoky
-			'<i class="wi wi-strong-wind"></i>',		//blustery
-			'<i class="wi wi-strong-wind"></i>',		//windy
-			'<i class="wi wi-snowflake-cold"></i>',		//cold
-			'<i class="wi wi-cloudy"></i>',				//cloudy
-			'<i class="wi wi-night-cloudy"></i>',		//mostly cloudy (night)
-			'<i class="wi wi-day-cloudy"></i>',			//mostly cloudy (day)
-			'<i class="wi wi-night-cloudy"></i>',		//partly cloudy (night)
-			'<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
-			'<i class="wi wi-night-clear"></i>',		//clear (night)
-			'<i class="wi wi-day-sunny"></i>',			//sunny
-			'<i class="wi wi-night-clear"></i>',		//fair (night)
-			'<i class="wi wi-day-sunny"></i>',			//fair (day)
-			'<i class="wi wi-hail"></i>',				//mixed rain and hail
-			'<i class="wi wi-hot"></i>',				//hot
-			'<i class="wi wi-storm-showers"></i>',		//isolated thunderstorms
-			'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
-			'<i class="wi wi-storm-showers"></i>',		//scattered thunderstorms
-			'<i class="wi wi-showers"></i>',			//scattered showers
-			'<i class="wi wi-sleet"></i>',				//heavy snow
-			'<i class="wi wi-snow"></i>',				//scattered snow showers
-			'<i class="wi wi-sleet"></i>',				//heavy snow
-			'<i class="wi wi-cloudy"></i>',				//partly cloudy
-			'<i class="wi wi-storm-showers"></i>',		//thundershowers
-			'<i class="wi wi-snow"></i>',				//snow showers
-			'<i class="wi wi-storm-showers"></i>'		//isolated thundershowers
-		];
+		var icons = {
+			'01d': '<i class="wi wi-day-sunny"></i>',			//sunny,
+			'01n': '<i class="wi wi-night-clear"></i>',		//clear (night)
+			'02d': '<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+			'02n': '<i class="wi wi-night-cloudy"></i>',		//partly cloudy (night)
+			'03d': '<i class="wi wi-day-cloudy"></i>',			//mostly cloudy (day)
+			'03n': '<i class="wi wi-night-cloudy"></i>',		//mostly cloudy (night)
+			'04d': '<i class="wi wi-day-cloudy"></i>',
+			'04n': '<i class="wi wi-day-cloudy"></i>',
+			'09d': '<i class="wi wi-showers"></i>',			//scattered showers
+			'09n': '<i class="wi wi-showers"></i>',			//scattered showers
+			'10d': '<i class="wi wi-rain"></i>',				//showers
+			'10n': '<i class="wi wi-rain"></i>',				//showers
+			'11d': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'11n': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'13d': '<i class="wi wi-snow"></i>',				//snow
+			'13n': '<i class="wi wi-snow"></i>',				//snow
+			'50d': '<i class="wi wi-day-haze"></i>',			//haze
+			'50n': '<i class="wi wi-day-haze"></i>',			//haze
+			'200': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'201': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'202': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'210': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'211': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'212': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'221': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'230': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'231': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'232': '<i class="wi wi-thunderstorm"></i>',		//thunderstorms
+			'300': '<i class="wi wi-rain"></i>',				//showers
+			'301': '<i class="wi wi-rain"></i>',				//showers
+			'302': '<i class="wi wi-rain"></i>',				//showers
+			'310': '<i class="wi wi-rain"></i>',				//showers
+			'311': '<i class="wi wi-rain"></i>',				//showers
+			'312': '<i class="wi wi-rain"></i>',				//showers
+			'313': '<i class="wi wi-rain"></i>',				//showers
+			'314': '<i class="wi wi-rain"></i>',				//showers
+			'321': '<i class="wi wi-rain"></i>',				//showers
+			'500': '<i class="wi wi-rain"></i>',				//showers
+			'501': '<i class="wi wi-rain"></i>',				//showers
+			'502': '<i class="wi wi-rain-wind"></i>',			//tropical storm
+			'503': '<i class="wi wi-rain-wind"></i>',			//tropical storm
+			'504': '<i class="wi wi-rain-wind"></i>',			//tropical storm
+			'511': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'520': '<i class="wi wi-rain"></i>',				//showers
+			'521': '<i class="wi wi-rain"></i>',				//showers
+			'522': '<i class="wi wi-rain"></i>',				//showers
+			'531': '<i class="wi wi-rain"></i>',				//showers
+			'600': '<i class="wi wi-snow"></i>',				//snow showers
+			'601': '<i class="wi wi-snow"></i>',				//snow showers
+			'602': '<i class="wi wi-snow"></i>',				//snow showers
+			'611': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'612': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'615': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'616': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'620': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'621': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'622': '<i class="wi wi-rain-mix"></i>',			//mixed rain and snow
+			'701': '<i class="wi wi-fog"></i>',				//foggy
+			'711': '<i class="wi wi-smoke"></i>',				//smoky
+			'721': '<i class="wi wi-fog"></i>',				//foggy
+			'731': '<i class="wi wi-smoke"></i>',				//smoky
+			'741': '<i class="wi wi-fog"></i>',				//foggy
+			'751': '<i class="wi wi-dust"></i>',				//dust
+			'761': '<i class="wi wi-dust"></i>',				//dust
+			'762': '<i class="wi wi-dust"></i>',				//dust
+			'771': '<i class="wi wi-snowflake-cold"></i>',		//cold
+			'781': '<i class="wi wi-tornado"></i>',			//tornado
+			'800': '<i class="wi wi-day-sunny"></i>',			//sunny,
+			'801': '<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+			'802': '<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+			'803': '<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+			'804': '<i class="wi wi-day-cloudy"></i>',			//partly cloudy (day)
+		};
 	}
 
 	$(window).load(function() {
 		// Fetch the weather data for right now
-		queryYahoo();
+		queryOpenWeatherMap();
 
 		// Query Yahoo! at the requested interval for new weather data
 		setInterval(function() {
-			queryYahoo();
+			queryOpenWeatherMap();
 		}, waitBetweenWeatherQueriesMS);
 
 		// Set the current time and date on the clock
