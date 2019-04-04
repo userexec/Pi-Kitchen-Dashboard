@@ -103,14 +103,14 @@
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
 			result = result.list;
-			let fill = 1;
-			let count = 0;
-			for( let res of result){
+			var fill = 1;
+			var count = 0;
+			for( var res of result){
 				// find tomorrow day
 				if(res.dt_txt.indexOf('00:00:00') > 0){
-					let low = 200.0;
-					let high = -200.0;
-					for(let i=0; i<8; i++){
+					var low = 200.0;
+					var high = -200.0;
+					for(var i=0; i<8; i++){
 						if(i+count >= result.length){
 							continue;
 						}
@@ -121,7 +121,7 @@
 							low = result[count+i].main.temp_min;
 						}
 					}
-					let res_copy = result[Math.min(count + 5, count)]; // 3pm or last possible
+					var res_copy = result[Math.min(count + 5, count)]; // 3pm or last possible
 					res_copy.main.temp_max = (high>-200?high:res_copy.main.temp_max);
 					res_copy.main.temp_min = (low<200?low:res_copy.main.temp_min);
 					fillForecast(fill, res);
