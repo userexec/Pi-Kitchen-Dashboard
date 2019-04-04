@@ -9,9 +9,9 @@
 
 	// Your Openweathermap city code
 	// Find your id code at http://bulk.openweathermap.org/sample/
-	var city_id = 5128638; //NYC as an example
+	var zip_code = '10023'; //NYC as an example
 	var api_key = 'YOUR API KEY HERE';
-	
+
 	// Your temperature unit measurement
 	// This bit is simple, 'metric' for Celcius, and 'imperial' for Fahrenheit
 	var metric = 'imperial';
@@ -88,7 +88,7 @@
 	function queryOpenWeatherMap() {
 		$.ajax({
 			type: 'GET',
-			url: 'https://api.openweathermap.org/data/2.5/weather?id=' + city_id + '&appid=' + api_key + '&units=' + metric,
+			url: 'https://api.openweathermap.org/data/2.5/weather?zip=' + zip_code + '&appid=' + api_key + '&units=' + metric,
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
@@ -98,16 +98,38 @@
 
 		$.ajax({
 			type: 'GET',
-			url: 'https://api.openweathermap.org/data/2.5/forecast?id=' + city_id + '&appid=' + api_key + '&units=' + metric,
+			url: 'https://api.openweathermap.org/data/2.5/forecast?zip=' + zip_code + '&appid=' + api_key + '&units=' + metric,
 			dataType: 'json'
 		}).done(function (result) {
 			// Drill down into the returned data to find the relevant weather information
 			result = result.list;
-			fillForecast(1, result[0]);
-			fillForecast(2, result[8]);
-			fillForecast(3, result[16]);
-			fillForecast(4, result[24]);
-			fillForecast(5, result[32]);
+			let fill = 1;
+			let count = 0;
+			for( let res of result){
+				// find tomorrow day
+				if(res.dt_txt.indexOf('00:00:00') > 0){
+					let low = 200.0;
+					let high = -200.0;
+					for(let i=0; i<8; i++){
+						if(i+count >= result.length){
+							continue;
+						}
+						if(result[count+i].main.temp_max > high){
+							high = result[count+i].main.temp_max;
+						}
+						if(result[count+i].main.temp_min < low){
+							low = result[count+i].main.temp_min;
+						}
+					}
+					let res_copy = result[Math.min(count + 5, count)]; // 3pm or last possible
+					res_copy.main.temp_max = (high>-200?high:res_copy.main.temp_max);
+					res_copy.main.temp_min = (low<200?low:res_copy.main.temp_min);
+					fillForecast(fill, res);
+					fill++;
+				}
+
+				count++;
+			}
 		});
 	}
 
@@ -222,65 +244,3 @@
 		}, 1000);
 	});
 }());
-
-
-/////////// Example return data from Yahoo! Weather ///////////////////////////
-/*
-	"title": "Conditions for Rolla, MO at 2:52 pm CST",
-	"lat": "37.95",
-	"long": "-91.76",
-	"link": "http:\/\/us.rd.yahoo.com\/dailynews\/rss\/weather\/Rolla__MO\/*http:\/\/weather.yahoo.com\/forecast\/USMO0768_f.html",
-	"pubDate": "Wed, 11 Feb 2015 2:52 pm CST",
-	"condition": {
-		"code": "26",
-		"date": "Wed, 11 Feb 2015 2:52 pm CST",
-		"temp": "37",
-		"text": "Cloudy"
-	},
-	"description": "\n<img src=\"http:\/\/l.yimg.com\/a\/i\/us\/we\/52\/26.gif\"\/><br \/>\n<b>Current Conditions:<\/b><br \/>\nCloudy, 37 F<BR \/>\n<BR \/><b>Forecast:<\/b><BR \/>\nWed - Partly Cloudy. High: 41 Low: 17<br \/>\nThu - Sunny. High: 29 Low: 19<br \/>\nFri - Partly Cloudy. High: 47 Low: 28<br \/>\nSat - Partly Cloudy. High: 36 Low: 9<br \/>\nSun - AM Clouds\/PM Sun. High: 29 Low: 20<br \/>\n<br \/>\n<a href=\"http:\/\/us.rd.yahoo.com\/dailynews\/rss\/weather\/Rolla__MO\/*http:\/\/weather.yahoo.com\/forecast\/USMO0768_f.html\">Full Forecast at Yahoo! Weather<\/a><BR\/><BR\/>\n(provided by <a href=\"http:\/\/www.weather.com\" >The Weather Channel<\/a>)<br\/>\n",
-	"forecast": [
-		{
-			"code": "29",
-			"date": "11 Feb 2015",
-			"day": "Wed",
-			"high": "41",
-			"low": "17",
-			"text": "Partly Cloudy"
-		},
-		{
-			"code": "32",
-			"date": "12 Feb 2015",
-			"day": "Thu",
-			"high": "29",
-			"low": "19",
-			"text": "Sunny"
-		},
-		{
-			"code": "30",
-			"date": "13 Feb 2015",
-			"day": "Fri",
-			"high": "47",
-			"low": "28",
-			"text": "Partly Cloudy"
-		},
-		{
-			"code": "30",
-			"date": "14 Feb 2015",
-			"day": "Sat",
-			"high": "36",
-			"low": "9",
-			"text": "Partly Cloudy"
-		},
-		{
-			"code": "30",
-			"date": "15 Feb 2015",
-			"day": "Sun",
-			"high": "29",
-			"low": "20",
-			"text": "AM Clouds\/PM Sun"
-		}
-	],
-	"guid": {
-	"isPermaLink": "false",
-	"content": "USMO0768_2015_02_15_7_00_CST"
-*/
