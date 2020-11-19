@@ -9,7 +9,7 @@
 
 	// Your Openweathermap city code
 	// Find your id code at http://bulk.openweathermap.org/sample/
-	var zip_code = '10023'; //NYC as an example
+	var zip_code = '10023, US'; //NYC as an example. Country code needed for countries other than US.
 	var api_key = 'YOUR API KEY HERE';
 
 	// Your temperature unit measurement
