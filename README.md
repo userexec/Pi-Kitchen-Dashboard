@@ -1,3 +1,5 @@
+**This project is not maintained and is presented for archival purposes only**
+
 # Pi Kitchen Dashboard
 ##### Because thrift store monitors still need things to do.
 
